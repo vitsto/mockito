@@ -14,7 +14,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -65,12 +65,12 @@ public class UserServiceTest {
                 .hasMessage("User with this login has already been created");
     }
 
-//    @Test
-//    @DisplayName("When new user is created with correct data then method must add it to repository")
-//    void createUser() {
-//        //не могу понять как протестировать добавление пользователя, которое выполняется корректно.
-//        // помогите плиз
-//    }
+    @Test
+    @DisplayName("When new user is created with correct data then method must add it to repository")
+    void createUser() {
+        userService.createUser("test", "pass");
+        verify(userRepository).addUser(new User("test", "pass"));
+    }
 
     @Test
     @DisplayName("When user tries authorize with wrong data then method must return false")
